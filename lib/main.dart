@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:sportapp/pages/home.dart';
 import 'package:sportapp/pages/food.dart';
 import 'package:sportapp/pages/training.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() => runApp(MaterialApp(
-  home: homepage()
+  home: foodpage()
 ));
 
 class MainPanel extends StatelessWidget {

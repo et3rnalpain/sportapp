@@ -1,9 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class homepage extends StatefulWidget {
   const homepage({super.key});
+
+  void initfs() async
+  {
+      WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp();
+  }
+
   @override
-  State<homepage> createState() => _homepageState();
+  State<homepage> createState() {
+    initfs();
+    return _homepageState();
+  }
 }
 
 class _homepageState extends State<homepage> {
