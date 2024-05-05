@@ -5,10 +5,18 @@ import 'package:sportapp/pages/training.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(MaterialApp(
-  home: foodpage()
-));
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+          apiKey: "XXX",
+          appId: "1:798834587248:android:6d861fcd88e46c39f2e6b5",
+          messagingSenderId: "798834587248",
+          projectId: "sportapp-c6527")
+  );
 
+  runApp(MaterialApp(home: foodpage()));
+}
 class MainPanel extends StatelessWidget {
   const MainPanel({super.key});
 

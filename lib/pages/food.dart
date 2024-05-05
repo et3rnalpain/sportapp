@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -6,11 +10,15 @@ import 'package:flutter/services.dart';
 class foodpage extends StatefulWidget {
   const foodpage({super.key});
 
+
+
   @override
   State<foodpage> createState() => _foodpageState();
 }
 
 class _foodpageState extends State<foodpage> {
+  String? name, ccal,b,j,u;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +69,10 @@ class _foodpageState extends State<foodpage> {
                           borderSide: BorderSide(color: Color.fromARGB(255, 151, 251, 87), width: 1.0),
                         ),
                       ),
+                      onChanged: (String value)
+                      {
+                        name = value;
+                      },
                     ),
                     Padding(
                         padding: EdgeInsets.fromLTRB(0, 5, 0, 0)
@@ -82,6 +94,10 @@ class _foodpageState extends State<foodpage> {
                           FilteringTextInputFormatter.digitsOnly,
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                         ],
+                      onChanged: (String value)
+                    {
+                      ccal = value;
+                    },
                     ),
                     Padding(
                         padding: EdgeInsets.fromLTRB(0, 5, 0, 0)
@@ -102,7 +118,10 @@ class _foodpageState extends State<foodpage> {
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                      ],
+                      ],onChanged: (String value)
+                    {
+                      b = value;
+                    },
                     ),
                     Padding(
                         padding: EdgeInsets.fromLTRB(0, 5, 0, 0)
@@ -123,7 +142,10 @@ class _foodpageState extends State<foodpage> {
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                      ],
+                      ],onChanged: (String value)
+                    {
+                      j = value;
+                    },
                     ),
                     Padding(
                         padding: EdgeInsets.fromLTRB(0, 5, 0, 0)
@@ -144,7 +166,10 @@ class _foodpageState extends State<foodpage> {
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                      ],
+                      ],onChanged: (String value)
+                    {
+                      u = value;
+                    },
                     ),
                     Padding(
                       padding: EdgeInsets.fromLTRB(0, 20, 10, 5)
@@ -153,7 +178,18 @@ class _foodpageState extends State<foodpage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromARGB(255, 151, 251, 87),
                         ),
-                        onPressed: () {},
+                        onPressed: ()
+                        {
+                          FirebaseFirestore.instance.collection("food").add(
+                            {
+                              'name' : name,
+                              'ccal' : ccal,
+                              'b' : b,
+                              'j' : j,
+                              'u' : u
+                            }
+                          );
+                        },
                         child: Text(
                             "Добавить",
                           style: TextStyle(color: Color.fromARGB(255, 18, 18, 18)),

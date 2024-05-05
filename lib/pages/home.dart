@@ -4,15 +4,8 @@ import 'package:flutter/material.dart';
 class homepage extends StatefulWidget {
   const homepage({super.key});
 
-  void initfs() async
-  {
-      WidgetsFlutterBinding.ensureInitialized();
-      await Firebase.initializeApp();
-  }
-
   @override
   State<homepage> createState() {
-    initfs();
     return _homepageState();
   }
 }

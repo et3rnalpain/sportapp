@@ -1,4 +1,4 @@
-import 'package:sqflite/sqflite.dart';
+/*import 'package:sqflite/sqflite.dart';
 import 'package:sportapp/models/foodmodel.dart';
 import 'dart:async';
 
@@ -35,3 +35,4 @@ class sqliteDB
   static Future<int> delete(String table, food model) async =>
       await _db.delete(table, where: 'id = ?', whereArgs: [model.id]);
 }
+*/
