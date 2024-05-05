@@ -1,4 +1,7 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:sportapp/navigationbar.dart';
 import 'package:sportapp/pages/home.dart';
 import 'package:sportapp/pages/food.dart';
 import 'package:sportapp/pages/training.dart';
@@ -15,14 +18,16 @@ void main() async{
           projectId: "sportapp-c6527")
   );
 
-  runApp(MaterialApp(home: foodpage()));
+  runApp(MaterialApp(home: MainPanel()));
 }
 class MainPanel extends StatelessWidget {
   const MainPanel({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      bottomNavigationBar: navbar(),
+    );
   }
 }
 

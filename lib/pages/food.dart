@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:sportapp/navigationbar.dart';
 
 
 class foodpage extends StatefulWidget {
@@ -33,7 +33,7 @@ class _foodpageState extends State<foodpage> {
           ),
           )
         ),
-      body: SafeArea(
+        body: SafeArea(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [Column(
@@ -180,6 +180,7 @@ class _foodpageState extends State<foodpage> {
                         ),
                         onPressed: ()
                         {
+
                           FirebaseFirestore.instance.collection("food").add(
                             {
                               'name' : name,
@@ -206,9 +207,6 @@ class _foodpageState extends State<foodpage> {
         ),
 
     ),
-
-
-
     );
   }
 }
