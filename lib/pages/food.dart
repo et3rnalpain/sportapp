@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+
+
 class foodpage extends StatefulWidget {
   const foodpage({super.key});
 
@@ -48,36 +50,96 @@ class _foodpageState extends State<foodpage> {
                   ),
                   backgroundColor: Color.fromARGB(255, 246, 242, 242),
                   title: Text('Добавить еду', style: TextStyle(fontFamily: 'Josko'),),
-                  actions: [Text("Название", style: TextStyle(fontFamily: 'Josko'),),
+                  actions: [
                     TextField(
-
+                      decoration: InputDecoration(
+                        hintText: 'Название',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color.fromARGB(255, 151, 251, 87), width: 5.0),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color.fromARGB(255, 151, 251, 87), width: 1.0),
+                        ),
+                      ),
                     ),
-                    Text("Калорийность", style: TextStyle(fontFamily: 'Josko'),),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 0)
+                    ),
                     TextField(
+                      maxLength: 3,
+                      decoration: InputDecoration(
+                        hintText: 'Калорийность',
+                        counterText: '',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color.fromARGB(255, 151, 251, 87), width: 5.0),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color.fromARGB(255, 151, 251, 87), width: 1.0),
+                        ),
+                      ),
                         keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                         ],
                     ),
-                    Text("Белки", style: TextStyle(fontFamily: 'Josko'),),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 0)
+                    ),
                     TextField(
+                      maxLength: 3,
+                      decoration: InputDecoration(
+                        hintText: 'Белки',
+                        counterText: '',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color.fromARGB(255, 151, 251, 87), width: 5.0),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color.fromARGB(255, 151, 251, 87), width: 1.0),
+                        ),
+                      ),
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                       ],
                     ),
-                    Text("Жиры", style: TextStyle(fontFamily: 'Josko'),),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 0)
+                    ),
                     TextField(
+                      maxLength: 3,
+                      decoration: InputDecoration(
+                        hintText: 'Жиры',
+                        counterText: '',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color.fromARGB(255, 151, 251, 87), width: 5.0),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color.fromARGB(255, 151, 251, 87), width: 1.0),
+                        ),
+                      ),
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                       ],
                     ),
-                    Text("Углеводы", style: TextStyle(fontFamily: 'Josko'),),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 0)
+                    ),
                     TextField(
+                      maxLength: 3,
+                      decoration: InputDecoration(
+                        hintText: 'Углеводы',
+                        counterText: '',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color.fromARGB(255, 151, 251, 87), width: 5.0),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color.fromARGB(255, 151, 251, 87), width: 1.0),
+                        ),
+                      ),
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
