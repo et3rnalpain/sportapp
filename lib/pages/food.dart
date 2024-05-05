@@ -45,12 +45,65 @@ class _foodpageState extends State<foodpage> {
                   mainAxisSpacing: 20,),
               itemCount: snapshot.data?.docs.length,
               itemBuilder: (BuildContext ctx, index) {
-                return Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 144, 144, 144),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Text(snapshot.data?.docs[index].get('name')),
+                return Card(
+                  elevation: 50,
+                  shadowColor: Colors.black,
+                  color: Color.fromARGB(255, 151, 251, 87),
+                  child: SizedBox(
+                    width: 300,
+                    height: 500,
+                    child: Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 2,
+                          ), //SizedBox
+                          Text(
+                            snapshot.data?.docs[index].get('name'),
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.green[900],
+                              fontWeight: FontWeight.w500,
+                            ), //Textstyle
+                          ), //Text
+                          const SizedBox(
+                            height: 2,
+                          ), //SizedBox
+                          Text(
+                            'Ккал: ' + snapshot.data?.docs[index].get('ccal') + '\nБелки: ' + snapshot.data?.docs[index].get('b') + '\nЖиры: ' + snapshot.data?.docs[index].get('j') + '\nУглеводы: ' + snapshot.data?.docs[index].get('u'),
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.green,
+                            ), //Textstyle
+                          ), //Text
+                          const SizedBox(
+                            height: 1,
+                          ), //SizedBox
+                          SizedBox(
+                            width: 80,
+                            height: 30,
+                            child: ElevatedButton(
+                              onPressed: (){
+                                FirebaseFirestore.instance.collection('food').doc(snapshot.data?.docs[index].id).delete();
+                              },
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 144, 144, 144))
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4),
+                                child: Row(
+                                  children: const [
+                                    Icon(Icons.delete, color: Color.fromARGB(255, 18, 18, 18),),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ), //Column
+                    ), //Padding
+                  ),
                 );
               });
         },
