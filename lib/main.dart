@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:sportapp/pages/home.dart';
 import 'package:sportapp/pages/food.dart';
 import 'package:sportapp/pages/training.dart';
+import 'package:sqflite/sqflite.dart';
 
 void main() => runApp(MaterialApp(
-  home: foodpage()
+  home: homepage()
 ));
 
 class MainPanel extends StatelessWidget {
