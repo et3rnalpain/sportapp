@@ -33,20 +33,28 @@ class _foodpageState extends State<foodpage> {
           ),
           )
         ),
-      body: SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [Column(
-              children: [
-                TextButton(onPressed: () {}, child: Text("ЕДА 1"))
-              ],
-            ),
-            Column(
-              children: [
-                TextButton(onPressed: () {}, child: Text("ЕДА 2"))
-              ],
-            )],
-          )
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('food').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+          if(!snapshot.hasData) return Text('Нет еды');
+          return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 3/ 2,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,),
+              itemCount: snapshot.data?.docs.length,
+              itemBuilder: (BuildContext ctx, index) {
+                return Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 144, 144, 144),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Text(snapshot.data?.docs[index].get('name')),
+                );
+              });
+        },
+
       ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Color.fromARGB(255, 151, 251, 87),
@@ -189,6 +197,7 @@ class _foodpageState extends State<foodpage> {
                               'u' : u
                             }
                           );
+                          Navigator.of(context).pop();
                         },
                         child: Text(
                             "Добавить",
