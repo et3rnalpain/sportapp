@@ -33,20 +33,81 @@ class _foodpageState extends State<foodpage> {
           ),
           )
         ),
-        body: SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [Column(
-              children: [
-                TextButton(onPressed: () {}, child: Text("ЕДА 1"))
-              ],
-            ),
-            Column(
-              children: [
-                TextButton(onPressed: () {}, child: Text("ЕДА 2"))
-              ],
-            )],
-          )
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('food').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+          if(!snapshot.hasData) return Text('Нет еды');
+          return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 3/ 2,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,),
+              itemCount: snapshot.data?.docs.length,
+              itemBuilder: (BuildContext ctx, index) {
+                return Card(
+                  elevation: 50,
+                  shadowColor: Colors.black,
+                  color: Color.fromARGB(255, 151, 251, 87),
+                  child: SizedBox(
+                    width: 300,
+                    height: 500,
+                    child: Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 2,
+                          ), //SizedBox
+                          Text(
+                            snapshot.data?.docs[index].get('name'),
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.green[900],
+                              fontWeight: FontWeight.w500,
+                            ), //Textstyle
+                          ), //Text
+                          const SizedBox(
+                            height: 2,
+                          ), //SizedBox
+                          Text(
+                            'Ккал: ' + snapshot.data?.docs[index].get('ccal') + '\nБелки: ' + snapshot.data?.docs[index].get('b') + '\nЖиры: ' + snapshot.data?.docs[index].get('j') + '\nУглеводы: ' + snapshot.data?.docs[index].get('u'),
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.green,
+                            ), //Textstyle
+                          ), //Text
+                          const SizedBox(
+                            height: 1,
+                          ), //SizedBox
+                          SizedBox(
+                            width: 80,
+                            height: 30,
+                            child: ElevatedButton(
+                              onPressed: (){
+                                FirebaseFirestore.instance.collection('food').doc(snapshot.data?.docs[index].id).delete();
+                              },
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 144, 144, 144))
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4),
+                                child: Row(
+                                  children: const [
+                                    Icon(Icons.delete, color: Color.fromARGB(255, 18, 18, 18),),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ), //Column
+                    ), //Padding
+                  ),
+                );
+              });
+        },
+
       ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Color.fromARGB(255, 151, 251, 87),
@@ -180,7 +241,6 @@ class _foodpageState extends State<foodpage> {
                         ),
                         onPressed: ()
                         {
-
                           FirebaseFirestore.instance.collection("food").add(
                             {
                               'name' : name,
@@ -190,6 +250,7 @@ class _foodpageState extends State<foodpage> {
                               'u' : u
                             }
                           );
+                          Navigator.of(context).pop();
                         },
                         child: Text(
                             "Добавить",
@@ -207,6 +268,9 @@ class _foodpageState extends State<foodpage> {
         ),
 
     ),
+
+
+
     );
   }
 }
