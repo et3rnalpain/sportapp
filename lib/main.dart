@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sportapp/pages/home.dart';
+import 'package:sportapp/pages/food.dart';
+import 'package:sportapp/pages/training.dart';
 
 void main() => runApp(MaterialApp(
   home: homepage()
