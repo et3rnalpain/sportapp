@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sportapp/pages/home.dart';
+import 'package:sportapp/pages/food.dart';
 
 void main() => runApp(MaterialApp(
-  home: homepage()
+  home: foodpage()
 ));
 
 class MainPanel extends StatelessWidget {
