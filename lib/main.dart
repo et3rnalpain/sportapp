@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sportapp/pages/home.dart';
 
 void main() => runApp(MaterialApp(
-  home: MainPanel(),
+  home: homepage()
 ));
 
 class MainPanel extends StatelessWidget {
