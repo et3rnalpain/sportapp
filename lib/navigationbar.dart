@@ -12,8 +12,10 @@ class navbar extends StatefulWidget {
 class _navbarState extends State<navbar> {
   int index = 1;
   final screens = [
-    foodpage(),
-    homepage()
+    homepage(),
+    homepage(),
+    homepage(),
+    foodpage()
   ];
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class _navbarState extends State<navbar> {
         data: NavigationBarThemeData(
           indicatorColor: Color.fromARGB(255, 151, 251, 87) ,
           labelTextStyle: MaterialStateProperty.all(TextStyle(
-            fontSize: 15,
+            fontSize: 13,
             color: Color.fromARGB(255, 12, 12, 12),
             fontFamily: "Josko"
             ),
@@ -34,7 +36,7 @@ class _navbarState extends State<navbar> {
           onDestinationSelected: (index) =>  setState(() => this.index = index),
           selectedIndex: index,
           destinations: [
-            NavigationDestination(icon: Icon(Icons.account_box_outlined), label: "Профиль"),
+            NavigationDestination(icon: Icon(Icons.account_box_outlined), label: "Профиль",),
             NavigationDestination(icon: Icon(Icons.accessibility_new), label: "Цели"),
             NavigationDestination(icon: Icon(Icons.sports), label: "Тренировки"),
             NavigationDestination(icon: Icon(Icons.food_bank), label: "Еда"),

@@ -55,7 +55,7 @@ class _foodpageState extends State<foodpage> {
                       child: Column(
                         children: [
                           const SizedBox(
-                            height: 2,
+                            height: 0,
                           ), //SizedBox
                           Text(
                             snapshot.data?.docs[index].get('name'),
