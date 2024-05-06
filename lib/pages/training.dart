@@ -36,7 +36,24 @@ class _trainingpageState extends State<trainingpage> {
             padding: const EdgeInsets.all(10.0),
             itemBuilder: (BuildContext ctx, index) {
               return InkWell(
-                onTap: () {},
+                onTap: () {
+                  showDialog(context: context, builder: (BuildContext context) {
+                  return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0))
+                    ),
+                      backgroundColor: Color.fromARGB(255, 246, 242, 242),
+                      title: Text(snapshot.data?.docs[index].get('name'), style: TextStyle(fontFamily: 'Josko'),),
+                      actions: [
+                        Text(snapshot.data?.docs[index].get('description')),
+                        Image(
+                          image: AssetImage('images/' + snapshot.data?.docs[index].get('image') + '.jpg'),
+                        ),
+                      ],
+                  );
+                  }
+                  );
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     shape:BoxShape.rectangle,
@@ -46,7 +63,6 @@ class _trainingpageState extends State<trainingpage> {
                       opacity: 0.5,
                     )
                   ),
-                  //color: Color.fromARGB(255, 151, 251, 87),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(100, 25, 100, 25),
                     child: SizedBox(
