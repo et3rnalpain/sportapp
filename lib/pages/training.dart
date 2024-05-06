@@ -36,17 +36,70 @@ class _trainingpageState extends State<trainingpage> {
             padding: const EdgeInsets.all(10.0),
             itemBuilder: (BuildContext ctx, index) {
               return InkWell(
-                onTap: () {},
+                onTap: () {
+                  showDialog(context: context, builder: (BuildContext context) {
+                  return SingleChildScrollView(
+                    child: AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0))
+                      ),
+                        backgroundColor: Color.fromARGB(255, 246, 242, 242),
+                        title: Align(
+                          alignment: Alignment.center,
+                          child:Text(
+                            snapshot.data?.docs[index].get('name'), 
+                            style: TextStyle(
+                              fontFamily: 'Josko',
+                              color: Color.fromRGBO(18, 18, 18, 1),
+                              fontSize: 35,
+                            ),
+                            
+                          ),
+                        ),
+                        actions: [
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              snapshot.data?.docs[index].get('description'),
+                              style: TextStyle(
+                                fontFamily: 'Josko',
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                          Image(
+                            image: AssetImage('images/' + snapshot.data?.docs[index].get('image') + '.jpg'),
+                          ),
+                          Image(
+                            image: AssetImage('images/' + snapshot.data?.docs[index].get('image') + '.jpg'),
+                          ),
+                          Image(
+                            image: AssetImage('images/' + snapshot.data?.docs[index].get('image') + '.jpg'),
+                          ),
+                          Image(
+                            image: AssetImage('images/' + snapshot.data?.docs[index].get('image') + '.jpg'),
+                          ),
+                          Image(
+                            image: AssetImage('images/' + snapshot.data?.docs[index].get('image') + '.jpg'),
+                          ),
+                          Image(
+                            image: AssetImage('images/' + snapshot.data?.docs[index].get('image') + '.jpg'),
+                          ),
+                        ],
+                    )
+                  );
+                  }
+                  );
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     shape:BoxShape.rectangle,
                     image: DecorationImage(
                       image: AssetImage('images/' + snapshot.data?.docs[index].get('image') + '.jpg'),
                       fit: BoxFit.cover,
-                      opacity: 0.5,
+                      opacity: 0.8,
                     )
                   ),
-                  //color: Color.fromARGB(255, 151, 251, 87),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(100, 25, 100, 25),
                     child: SizedBox(
@@ -55,7 +108,18 @@ class _trainingpageState extends State<trainingpage> {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Text(snapshot.data?.docs[index].get('name')),
+                              Align(
+                                alignment: Alignment.center,
+                                child:Text(
+                                  snapshot.data?.docs[index].get('name'),
+                                  style: TextStyle(
+                                    fontFamily: 'Josko',
+                                    color: Color.fromRGBO(246, 242, 242, 1),
+                                    fontSize: 45,
+                                  ),
+
+                                ),
+                              ),
                               Padding(padding: EdgeInsets.all(10.0)),
                             ],
                         ),
