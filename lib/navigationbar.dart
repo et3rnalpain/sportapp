@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sportapp/pages/food.dart';
 import 'package:sportapp/pages/home.dart';
+import 'package:sportapp/pages/training.dart';
 
 class navbar extends StatefulWidget {
   const navbar({super.key});
@@ -14,7 +15,7 @@ class _navbarState extends State<navbar> {
   final screens = [
     homepage(),
     homepage(),
-    homepage(),
+    trainingpage(),
     foodpage()
   ];
   @override
