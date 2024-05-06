@@ -34,9 +34,14 @@ class _homepageState extends State<homepage> {
         child:  Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Expanded(
+            Container(
+              height: 200,
               child: Row( children: <Widget>[Expanded(
-                  child: LineChart(
+
+                  child: Container(
+                      height: 400,
+                      alignment: Alignment.topCenter,
+                      child: LineChart(
                       LineChartData
                         (
                           minX: 0,
@@ -45,27 +50,41 @@ class _homepageState extends State<homepage> {
                           maxY: 50,
                           lineBarsData: [LineChartBarData(
                               spots: [
-                                FlSpot(0, 0),
-                                FlSpot(10, 15),
-                                FlSpot(20, 25),
-                                FlSpot(30, 15),
+
                               ],
                               isCurved: true
                           )]
                       )
                   )
-              )]
+              ))]
               ),
             ),
-          Container(child: Row(children: <Widget>[ Expanded(child: ElevatedButton(
+          Container(margin: EdgeInsets.all(10),child: Row(children: <Widget>[ Expanded(child: ElevatedButton(
             onPressed: () {},
+            style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(255, 246, 242, 242)),
             child: Text("Добавить значение", style: TextStyle(
               fontFamily: "Josko",
               fontSize: 20,
               color: Color.fromARGB(255, 12, 12, 12)
             ),),
           ))],),
-          )]
+          ),
+
+          Container(
+            height: 50,
+            margin: EdgeInsets.all(10),
+            decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20)),
+              color: Color.fromARGB(255, 246, 242, 242),),
+
+            child: Row(
+              children: [
+                Expanded(child:Center(child: Container(alignment: Alignment.centerRight,child: Text("Ваш индекс массы тела:", style: TextStyle( fontFamily: "Josko", fontSize: 15, color: Color.fromARGB(255, 12, 12, 12)),)))),
+                Expanded(child:Center(child: Container(alignment: Alignment.center,child: Text("Гавно", style: TextStyle( fontFamily: "Josko", fontSize: 15, color: Color.fromARGB(255, 12, 12, 12)),)))),
+              ],
+            ),
+          ),
+            SizedBox(height: 20,)
+          ]
         ),
     )
     );
