@@ -5,6 +5,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sportapp/navigationbar.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:path/path.dart';
 
 
 class foodpage extends StatefulWidget {
@@ -17,12 +22,31 @@ class foodpage extends StatefulWidget {
 }
 
 class _foodpageState extends State<foodpage> {
+  XFile? _image;
   String? name, ccal,b,j,u;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    Future getImage() async {
+      ImagePicker picker = ImagePicker();
+      var image = await picker.pickImage(source: ImageSource.camera);
 
+      setState(() {
+        _image = image;
+        print('Image Path $_image');
+      });
+    }
+
+    Future uploadPic(BuildContext context) async{
+      String fileName = basename(_image?.path ?? 'default');
+      FirebaseStorage storage = FirebaseStorage.instance;
+      Reference ref = storage.ref().child("image1" + DateTime.now().toString());
+      UploadTask uploadTask = ref.putFile(File(_image?.path ?? 'default'));
+      uploadTask.then((res) {
+        res.ref.getDownloadURL();
+      });
+    }
+    return Scaffold(
         backgroundColor: Color.fromARGB(255, 246, 242, 242),
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 151, 251, 87),
@@ -36,124 +60,55 @@ class _foodpageState extends State<foodpage> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('food').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
-          if(!snapshot.hasData) return Text('Нет еды');
+          if(!snapshot.hasData) return
+            Center( child: Text ('Нет еды'));
           return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 3/ 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                crossAxisSpacing: 8.0,
+                mainAxisSpacing: 5.0,
+              ),
               itemCount: snapshot.data?.docs.length,
               itemBuilder: (BuildContext ctx, index) {
                 return Card(
-                  color: Color.fromARGB(255, 151, 251, 87),
-                  child: SizedBox(
-                    width: 300,
-                    height: 200,
-                    child: Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 0,
-                          ), //SizedBox
-                          Text(
-                            snapshot.data?.docs[index].get('name'),
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.green[900],
-                              fontWeight: FontWeight.w500,
-                            ), //Textstyle
-                          ), //Text
-                          const SizedBox(
-                            height: 2,
-                          ), //SizedBox
-                          Text(
-                            'Ккал: ' + snapshot.data?.docs[index].get('ccal') + '\nБелки: ' + snapshot.data?.docs[index].get('b') + '\nЖиры: ' + snapshot.data?.docs[index].get('j') + '\nУглеводы: ' + snapshot.data?.docs[index].get('u'),
-                            style: TextStyle(
-                              fontSize: 8.5,
-                              color: Color.fromARGB(255, 18, 18, 18),
-                            ), //Textstyle
-                          ), //Text
-                          const SizedBox(
-                            height: 1,
-                          ), //SizedBox
-                          SizedBox(
-                            width: 200,
-                            height: 35,
-                            child: Row(
-                              children: [
-                                Padding(
-                                    padding: EdgeInsets.fromLTRB(40, 0, 0, 0)
-                                ),
-                                IconButton(
-                                  onPressed: (){
-                                    showDialog(context: context, builder: (BuildContext context){
-                                      return AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(10.0))
-                                        ),
-                                        backgroundColor: Color.fromARGB(255, 246, 242, 242),
-                                        title: Text('Сколько вы съели?', style: TextStyle(fontFamily: 'Josko'),),
-                                        actions: [
-                                          TextField(
-                                            decoration: InputDecoration(hintText: 'Вес (г)',
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(color: Color.fromARGB(255, 151, 251, 87), width: 5.0),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(color: Color.fromARGB(255, 151, 251, 87), width: 1.0),
-                                              ),
-                                            ),
-                                            keyboardType: TextInputType.number,
-                                            inputFormatters: [
-                                            FilteringTextInputFormatter.digitsOnly,
-                                              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                                      ],
-                                            onChanged: (String value)
-                                            {name = value;},
-                                          ),
-                                          Padding(
-                                              padding: EdgeInsets.fromLTRB(0, 7, 0, 0)
-                                          ),
-                                          ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: Color.fromARGB(255, 151, 251, 87),
-                                              ),
-                                              onPressed: () {},
-                                              child: Text(
-                                                "Готово",
-                                                style: TextStyle(color: Color.fromARGB(255, 18, 18, 18)),
-                                              )
-                                          )
-                                        ]
-                                      );
-                                    });
-                                  },
-                                  style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 151, 251, 87))
-                                  ),
-                                    icon: Icon(Icons.food_bank_outlined)
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 7, 0)
-                                ),
-                                IconButton(
-                                  onPressed: (){
-                                    FirebaseFirestore.instance.collection('food').doc(snapshot.data?.docs[index].id).delete();
-                                  },
-                                  style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 151, 251, 87))
-                                  ),
-                                  icon: Icon(Icons.delete_outline)
-                                ),
-                              ],
+                    elevation: 4.0,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text(snapshot.data?.docs[index].get('name')),
+                          subtitle: Text('Ккал: ' + snapshot.data?.docs[index].get('ccal') + ' Белки: ' + snapshot.data?.docs[index].get('b') + '\nЖиры: ' + snapshot.data?.docs[index].get('j') + ' Углеводы: ' + snapshot.data?.docs[index].get('u')),
+                        ),
+                        Padding(padding:EdgeInsets.fromLTRB(0, 20, 0, 0)),
+                        Container(
+                          height: 200,
+                          width: 300,
+                          decoration: BoxDecoration(
+                              shape:BoxShape.rectangle,
+                              image: DecorationImage(
+                                image: AssetImage('images/grecha.jpg'),
+                                fit: BoxFit.cover,
+                                opacity: 1,
+                              )
+                          ),
+                        ),
+                        ButtonBar(
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.camera),
+                              onPressed: () {getImage(); uploadPic(context);},
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.food_bank_outlined),
+                              onPressed: () {},
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.delete_outline_outlined),
+                              onPressed: () {},
                             )
-                          )
-                        ],
-                      ), //Column
-                    ), //Padding
-                  ),
+                          ],
+                        )
+                      ],
+                    )
                 );
               });
         },
