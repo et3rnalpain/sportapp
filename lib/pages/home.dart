@@ -1,5 +1,7 @@
 
 
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,6 +20,7 @@ class homepage extends StatefulWidget {
 
 class _homepageState extends State<homepage> {
   String? w = "5";
+  double goal = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +39,8 @@ class _homepageState extends State<homepage> {
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('weightdata').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot)
-        {
-          List<FlSpot> pts = [];
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+          List<FlSpot> ?pts = [];
           double miny=200,maxy=-1;
           double minx=200,maxx=-1;
           for(final obj in snapshot.data!.docs.reversed.toList())
@@ -53,11 +55,14 @@ class _homepageState extends State<homepage> {
             if(y1 < miny) miny = y1;
 
             if(x1 > maxx) maxx =  x1;
-            if(maxx < 10) maxx = 10;
             if(x1 < minx) minx =  x1;
 
             pts.add(FlSpot(x1, y1));
           }
+
+          pts.sort((a,b) => a.x.compareTo(b.x));
+
+          if(snapshot.data!.docs.isEmpty) {minx=0; maxx = 31; miny = 30; maxy = 100;}
           return SafeArea(
             child:  Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -65,8 +70,8 @@ class _homepageState extends State<homepage> {
                   Container(
                     height: 200,
                     child: Row( children: <Widget>[Expanded(
-
                         child: Container(
+                            padding: EdgeInsets.fromLTRB(0, 20, 37, 0),
                             height: 400,
                             alignment: Alignment.topCenter,
                             child: LineChart(
@@ -76,16 +81,56 @@ class _homepageState extends State<homepage> {
                                     minY: miny,
                                     maxX: maxx,
                                     maxY: maxy,
+                                    titlesData: const FlTitlesData(
+                                      topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                                      rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false))
+                                    ),
                                     lineBarsData: [LineChartBarData(
+
                                         spots: pts,
+                                        show: true,
+                                        barWidth: 5,
+                                        preventCurveOverShooting: true,
+                                        curveSmoothness: 0.5,
+                                        belowBarData: BarAreaData(
+                                          show: true,
+                                          gradient: const LinearGradient(colors:
+                                          [
+                                            Color.fromARGB(40, 151, 251, 87),
+                                            Color.fromARGB(40, 198, 255, 55),
+                                            Color.fromARGB(40, 208, 255, 116)
+                                          ])
+                                          //color: Color.fromARGB(40, 151, 251, 87)
+                                        ),
+                                        gradient: const LinearGradient(colors:
+                                        [
+                                          Color.fromARGB(255, 151, 251, 87),
+                                          Color.fromARGB(255, 198, 255, 55),
+                                          Color.fromARGB(255, 208, 255, 116)
+                                        ]),
                                         isCurved: true
-                                    )]
+                                    ),
+                                      LineChartBarData(
+                                          spots: [FlSpot(minx, goal), FlSpot(maxx, goal)],
+                                          show: true,
+                                          barWidth: 3,
+                                          gradient: const LinearGradient(colors:
+                                          [
+                                            Color.fromARGB(255, 151, 251, 87),
+                                            Color.fromARGB(255, 198, 255, 55),
+                                            Color.fromARGB(255, 208, 255, 116)
+                                          ]),
+                                          )
+                                    ]
                                 )
                             )
                         ))]
                     ),
                   ),
-                  Container(margin: EdgeInsets.all(10),child: Row(children: <Widget>[ Expanded(child: ElevatedButton(
+                  Container(margin: EdgeInsets.all(10),child: Row(children: <Widget>[ Expanded(child: TextField(
+
+                  ))
+                    ,Expanded(child: ElevatedButton(
                     onPressed: () {
                       showDialog(context: context, builder: (BuildContext context)
                       {
@@ -98,7 +143,7 @@ class _homepageState extends State<homepage> {
                           actions: [
                             TextField(
                               //keyboardType: TextInputType.number,
-                              decoration: InputDecoration(hintText: 'Вес (г)',
+                              decoration: InputDecoration(hintText: 'Вес (кг)',
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Color.fromARGB(255, 151, 251, 87), width: 5.0),
                                 ),
@@ -135,12 +180,12 @@ class _homepageState extends State<homepage> {
                     style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(255, 246, 242, 242)),
                     child: Text("Добавить значение", style: TextStyle(
                         fontFamily: "Josko",
-                        fontSize: 20,
+                        fontSize: 14,
                         color: Color.fromARGB(255, 12, 12, 12)
                     ),),
-                  ))],),
+                  ))
+                  ],),
                   ),
-
                   Container(
                     height: 50,
                     margin: EdgeInsets.all(10),
@@ -154,7 +199,75 @@ class _homepageState extends State<homepage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20,)
+                  Expanded(child: StreamBuilder(stream: FirebaseFirestore.instance.collection("ccaldata").snapshots(), builder: (BuildContext context2, AsyncSnapshot<QuerySnapshot> snapshot2)
+                  {
+                    List<FlSpot> pts2 = [];
+                    for(double i = 1; i < 31; i++)
+                    {
+                      pts2.add(FlSpot(i, 0));
+                    }
+                    for(var obj in snapshot2.data!.docs.reversed.toList())
+                    {
+                      for(var o in pts2)
+                      {
+                        double s = obj['date'];
+                        double prevccal = o.y;
+                        double f = o.x;
+                        if(s == f)
+                        {
+                          pts2.remove(o);
+                          pts2.add(FlSpot(s, (prevccal + double.parse(obj['ccal']))));
+                        }
+                      }
+                    }
+                    pts2.sort((a,b) => a.x.compareTo(b.x));
+                    return Container(
+                      height: 200,
+                      child: Row( children: <Widget>[Expanded(
+                          child: Container(
+                              padding: EdgeInsets.fromLTRB(0, 20, 37, 0),
+                              height: 400,
+                              alignment: Alignment.topCenter,
+                              child: LineChart(
+                                  LineChartData
+                                    (
+                                      titlesData: const FlTitlesData(
+                                          topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                                          rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false))
+                                      ),
+                                      lineBarsData: [LineChartBarData(
+                                          show: true,
+                                          spots: pts2,
+                                          barWidth: 5,
+                                          preventCurveOverShooting: true,
+                                          curveSmoothness: 0.5,
+                                          belowBarData: BarAreaData(
+                                              show: true,
+                                              gradient: const LinearGradient(colors:
+                                              [
+                                                Color.fromARGB(40, 151, 251, 87),
+                                                Color.fromARGB(40, 198, 255, 55),
+                                                Color.fromARGB(40, 208, 255, 116)
+                                              ])
+                                            //color: Color.fromARGB(40, 151, 251, 87)
+                                          ),
+                                          gradient: const LinearGradient(colors:
+                                          [
+                                            Color.fromARGB(255, 151, 251, 87),
+                                            Color.fromARGB(255, 198, 255, 55),
+                                            Color.fromARGB(255, 208, 255, 116)
+                                          ]),
+                                          isCurved: true
+                                      )
+                                      ]
+                                  )
+                              )
+                          ))]
+                      ),
+                    );
+                  }))
+
+
                 ]
             ),
           );

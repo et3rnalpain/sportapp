@@ -60,7 +60,7 @@ class _trainingpageState extends State<trainingpage> {
                           Align(
                             alignment: Alignment.topLeft,
                             child: Text(
-                              snapshot.data?.docs[index].get('description'),
+                              snapshot.data!.docs[index].get('description').toString().replaceAll("ent", '\n'),
                               style: TextStyle(
                                 fontFamily: 'Josko',
                                 fontSize: 20,

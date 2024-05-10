@@ -99,7 +99,9 @@ class _foodpageState extends State<foodpage> {
                             ),
                             IconButton(
                               icon: Icon(Icons.food_bank_outlined),
-                              onPressed: () {},
+                              onPressed: () {
+                                FirebaseFirestore.instance.collection("ccaldata").add({"date" : DateTime.now().day, "ccal" : snapshot.data?.docs[index].get('ccal')});
+                              },
                             ),
                             IconButton(
                               icon: Icon(Icons.delete_outline_outlined),
