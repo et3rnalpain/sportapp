@@ -34,8 +34,10 @@ class _UserPageState extends State<UserPage> {
               ],
             ),
             Row(
-              children: [
+              children: [SizedBox(width: 30,),Text("Твой рост: ", style: TextStyle(fontFamily: "Josko", fontSize: 20)),
+                SizedBox(width: 30,),
                 Expanded(child: TextField()),
+                SizedBox(width: 30,)
               ],
             ),
             Row(
