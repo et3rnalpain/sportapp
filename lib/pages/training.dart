@@ -22,7 +22,7 @@ class _trainingpageState extends State<trainingpage> {
       backgroundColor: Color.fromARGB(255, 246, 242, 242),
       appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 151, 251, 87),
-          title: Center(
+          title: const Center(
             child: Text(
                 style: TextStyle(fontFamily: "Josko", color: Color.fromARGB(255, 18, 18, 18), fontSize: 20),
                 "Тренировки"
@@ -42,7 +42,7 @@ class _trainingpageState extends State<trainingpage> {
                       showDialog(context: context, builder: (BuildContext context) {
                         return SingleChildScrollView(
                           child: AlertDialog(
-                            shape: RoundedRectangleBorder(
+                            shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(25.0))
                             ),
                               backgroundColor: Color.fromARGB(255, 246, 242, 242),
@@ -50,7 +50,7 @@ class _trainingpageState extends State<trainingpage> {
                                 alignment: Alignment.center,
                                 child:Text(
                                   snapshot.data?.docs[index].get('name'),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontFamily: 'Josko',
                                     color: Color.fromRGBO(18, 18, 18, 1),
                                     fontSize: 35,
@@ -58,7 +58,7 @@ class _trainingpageState extends State<trainingpage> {
                                 ),
                               ),
                               actions: [
-                                Align(
+                                const Align(
                                   alignment: Alignment.topLeft,
                                   child:
                                     Text(
@@ -75,7 +75,7 @@ class _trainingpageState extends State<trainingpage> {
                                   alignment: Alignment.topLeft,
                                   child: Text(
                                     snapshot.data!.docs[index].get('description').toString().replaceAll("ent", '\n'),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontFamily: 'Josko',
                                       fontSize: 20,
                                     ),
