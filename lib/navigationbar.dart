@@ -14,7 +14,7 @@ class navbar extends StatefulWidget {
 class _navbarState extends State<navbar> {
   int index = 1;
   final screens = [
-    profilepage(),
+    UserPage(),
     homepage(),
     trainingpage(),
     foodpage(),
