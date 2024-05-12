@@ -69,7 +69,7 @@ class _trainingpageState extends State<trainingpage> {
                                     ),)
                                 ),
                                 Row(
-                                  children: List.generate(snapshot.data?.docs[index].get('difficulty'), (index) => Icon(Icons.star, color: Color.fromARGB(255, 151, 251, 87))),
+                                  children: List.generate(snapshot.data?.docs[index].get('difficulty'), (index) => Icon(Icons.star, size: 25, color: Color.fromARGB(246, 242, 242, 1))),
                                 ),
                                 Align(
                                   alignment: Alignment.topLeft,
@@ -134,7 +134,7 @@ class _trainingpageState extends State<trainingpage> {
                                   Column(
                                     children: [
                                       Row(
-                                          children: List.generate(snapshot.data?.docs[index].get('difficulty'), (index) => Icon(Icons.star, color: Color.fromARGB(255, 151, 251, 87))),
+                                          children: List.generate(snapshot.data?.docs[index].get('difficulty'), (index) => Icon(Icons.star, size: 45, color: Color.fromARGB(246, 242, 242, 1))),
                                       ),
                                     ],
                                   )
