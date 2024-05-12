@@ -14,7 +14,38 @@ class _UserPageState extends State<UserPage> {
         title: Text('Ты'),
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 151, 251, 87),
-      )
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(child: Center(child: CircleAvatar(),)),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(child: TextField()),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(child: TextField()),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(child: TextField()),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(child: TextButton(child: Text("Sperma"),onPressed: (){},)),
+              ],
+            )
+          ],
+        ),
+      ),
 
     );
   }
