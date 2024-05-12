@@ -36,7 +36,7 @@ class _foodpageState extends State<foodpage> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('food').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
-          if(!snapshot.hasData) return Text('Нет еды');
+          if(!snapshot.hasData) return Center( child: Icon(Icons.download_for_offline_outlined) );
           return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -59,7 +59,7 @@ class _foodpageState extends State<foodpage> {
                           Text(
                             snapshot.data?.docs[index].get('name'),
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               color: Colors.green[900],
                             ),
                             //Textstyle
@@ -147,46 +147,6 @@ class _foodpageState extends State<foodpage> {
                       ), //Column
                     ), //Padding
                   ),
-                    elevation: 4.0,
-                    /*child: Column(
-                      children: [
-                        ListTile(
-                          title: Text(snapshot.data?.docs[index].get('name')),
-                          subtitle: Text('Ккал: ' + snapshot.data?.docs[index].get('ccal') + ' Белки: ' + snapshot.data?.docs[index].get('b') + '\nЖиры: ' + snapshot.data?.docs[index].get('j') + ' Углеводы: ' + snapshot.data?.docs[index].get('u')),
-                        ),
-                        Padding(padding:EdgeInsets.fromLTRB(0, 20, 0, 0)),
-                        Container(
-                          height: 200,
-                          width: 300,
-                          decoration: BoxDecoration(
-                              shape:BoxShape.rectangle,
-                              image: DecorationImage(
-                                image: AssetImage('images/grecha.jpg'),
-                                fit: BoxFit.cover,
-                                opacity: 1,
-                              )
-                          ),
-                        ),
-                        ButtonBar(
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.camera),
-                              onPressed: () {*//*getImage(); uploadPic(context);*//*},
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.food_bank_outlined),
-                              onPressed: () {
-                                FirebaseFirestore.instance.collection("ccaldata").add({"date" : DateTime.now().day, "ccal" : snapshot.data?.docs[index].get('ccal')});
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.delete_outline_outlined),
-                              onPressed: () {},
-                            )
-                          ],
-                        )
-                      ],
-                    )*/
                 );
               });
         },
@@ -378,13 +338,10 @@ class _foodpageState extends State<foodpage> {
         },
         child: Icon(
           Icons.add,
+          size: 30,
           color: Color.fromARGB(255, 18, 18, 18),
         ),
-
       ),
-
-
-
     );
   }
 }
