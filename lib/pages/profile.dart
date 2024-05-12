@@ -8,6 +8,7 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+  String name = "undefined", weight = "1", height = "1";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +37,11 @@ class _UserPageState extends State<UserPage> {
               children: [SizedBox(width: 30,),Text("Твой nickname: ", style: TextStyle(fontFamily: "Josko", fontSize: 20)),
                 SizedBox(width: 30,),
                 Expanded(child: TextField(
+                  onChanged: (text) {
+                    setState(() {
+                      name = text;
+                    });
+                  },
                   maxLength: 20,
                 )),
                 SizedBox(width: 80,)
@@ -45,17 +51,28 @@ class _UserPageState extends State<UserPage> {
               children: [SizedBox(width: 30,),Text("Твой вес: ", style: TextStyle(fontFamily: "Josko", fontSize: 20)),
                 SizedBox(width: 30,),
                 Expanded(child: TextField(
+                  onChanged: (text) {
+                    setState(() {
+                      weight = text;
+                    });
+                  },
                   maxLength: 3,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 )),
-                SizedBox(width: 150,)
+                SizedBox(width: 150,),
+                Text(weight)
               ],
             ),
             Row(
               children: [SizedBox(width: 30,),Text("Твой рост: ", style: TextStyle(fontFamily: "Josko", fontSize: 20)),
                 SizedBox(width: 30,),
                 Expanded(child: TextField(
+                  onChanged: (text) {
+                    setState(() {
+                      height = text;
+                    });
+                  },
                   maxLength: 3,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -65,7 +82,9 @@ class _UserPageState extends State<UserPage> {
             ),
             Row(
               children: [
-                Expanded(child: TextButton(child: Text("Sperma"),onPressed: (){},)),
+                Expanded(child: TextButton(child: Text("Sperma"),onPressed: (){
+
+                },)),
               ],
             )
           ],
