@@ -95,7 +95,7 @@ class _UserPageState extends State<UserPage> {
             Row(
               children: [SizedBox(width: 30,),Text("Твой nickname: ", style: TextStyle(fontFamily: "Josko", fontSize: 20)),
                 SizedBox(width: 30,),
-                Expanded(child: TextField(
+                /*Expanded(child: TextField(
                   controller: controller,
                   onChanged: (text) {
                     setState(() {
@@ -103,14 +103,15 @@ class _UserPageState extends State<UserPage> {
                     });
                   },
                   maxLength: 20,
-                )),
+                )),*/
+                Text(name, style: TextStyle(fontFamily: "Josko", fontSize: 20)),
                 SizedBox(width: 30,)
               ],
             ),
             Row(
               children: [SizedBox(width: 30,),Text("Твой рост: ", style: TextStyle(fontFamily: "Josko", fontSize: 20)),
                 SizedBox(width: 30,),
-                Expanded(child: TextField(
+                /*Expanded(child: TextField(
                   controller: controller1,
                   onChanged: (text) {
                     setState(() {
@@ -120,16 +121,18 @@ class _UserPageState extends State<UserPage> {
                   maxLength: 3,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                )),
-                SizedBox(width: 30,)
+                )),*/
+                Text(weight, style: TextStyle(fontFamily: "Josko", fontSize: 20)),
+
+                SizedBox(width: 30,),
                 SizedBox(width: 150,),
-                Text(weight)
+                //Text(weight)
               ],
             ),
             Row(
               children: [SizedBox(width: 30,),Text("Твой возраст: ", style: TextStyle(fontFamily: "Josko", fontSize: 20)),
                 SizedBox(width: 30,),
-                Expanded(child: TextField(
+                /*Expanded(child: TextField(
                   controller: controller2,
                   onChanged: (text) {
                     setState(() {
@@ -139,7 +142,9 @@ class _UserPageState extends State<UserPage> {
                   maxLength: 3,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                )),
+                )),*/
+                Text(height, style: TextStyle(fontFamily: "Josko", fontSize: 20)),
+
                 SizedBox(width: 30,)
               ],
             ),
@@ -155,8 +160,8 @@ class _UserPageState extends State<UserPage> {
                     enabled = true;
                   });
                 } : null,  )),
-                SizedBox(width: 30,)
-              children: [
+                SizedBox(width: 30,),
+             // children: [
                 Expanded(child: TextButton(child: Text("Sperma"),onPressed: (){
                   FirebaseFirestore.instance.collection("profile").doc('0qGL2B0vE094290kGXPl').update(
                       {
@@ -169,6 +174,98 @@ class _UserPageState extends State<UserPage> {
               ],
             )
           ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.amber,
+        onPressed: ()
+        {
+          showDialog(context: context, builder: (BuildContext context){
+            return AlertDialog(
+              title: Text('Изменить параметры'),
+              actions: [
+                SafeArea(
+            child:
+                  Column(
+              children: [
+               Row(
+                children:[
+                 SizedBox(height: 20),
+                ]
+             ),
+
+
+                Row(
+                  children: [Text("Твой nickname: ", style: TextStyle(fontFamily: "Josko", fontSize: 20)),
+                   Expanded(child: TextField(
+                    onChanged: (text) {
+                     setState(() {
+                    name = text;
+                });
+                },
+                    maxLength: 20,
+                  )),
+
+                  ],
+
+                ),
+                Row(
+                    children: [Text("Твой вес: ", style: TextStyle(fontFamily: "Josko", fontSize: 20)),
+                   Expanded(child: TextField(
+                     onChanged: (text) {
+                        setState(() {
+                        weight = text;
+                    });
+
+                     },
+
+                    maxLength: 3,
+
+                     keyboardType: TextInputType.number,
+                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+
+                )),
+                    ],
+
+                ),
+                  Row(
+                      children: [Text("Твой рост: ", style: TextStyle(fontFamily: "Josko", fontSize: 20)),
+                       Expanded(child: TextField(
+                       onChanged: (text) {
+                        setState(() {
+                        height = text;
+                       });
+                      },
+                      maxLength: 3,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                   )),
+                   ],
+                  ),
+                  Row(
+                  children: [
+                    Expanded(child: TextButton(child: Text("Sperma"),onPressed: (){
+                      FirebaseFirestore.instance.collection("profile").doc('0qGL2B0vE094290kGXPl').update(
+                    {
+                        'name': name,
+                        'weight': weight,
+                        'height': height,
+                    }
+                    );
+                  },)),
+                 ],
+                   )
+               ],
+                ),
+              ),
+              ],
+
+            );
+          });
+        },
+        child: Icon(
+          Icons.settings,
+          color: Colors.white
         ),
       ),
 
