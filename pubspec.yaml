@@ -37,6 +37,7 @@ flutter:
     - assets/images/abs.jpg
     - assets/images/prised.jpg
     - assets/images/grecha.jpg
+    - assets/images/training3.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sportapp/pages/food.dart';
 import 'package:sportapp/pages/home.dart';
 import 'package:sportapp/pages/training.dart';
+import 'package:sportapp/pages/profile.dart';
 
 class navbar extends StatefulWidget {
   const navbar({super.key});
@@ -13,10 +14,10 @@ class navbar extends StatefulWidget {
 class _navbarState extends State<navbar> {
   int index = 1;
   final screens = [
-    homepage(),
+    profilepage(),
     homepage(),
     trainingpage(),
-    foodpage()
+    foodpage(),
   ];
   @override
   Widget build(BuildContext context) {
