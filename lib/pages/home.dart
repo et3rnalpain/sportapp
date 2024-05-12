@@ -40,7 +40,8 @@ class _homepageState extends State<homepage> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('weightdata').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
-          List<FlSpot> ?pts = [];
+          if(!snapshot.hasData) return Text("no data");
+          List<FlSpot> pts = [];
           double miny=200,maxy=-1;
           double minx=200,maxx=-1;
           for(final obj in snapshot.data!.docs.reversed.toList())
@@ -57,12 +58,14 @@ class _homepageState extends State<homepage> {
             if(x1 > maxx) maxx =  x1;
             if(x1 < minx) minx =  x1;
 
+
             pts.add(FlSpot(x1, y1));
           }
 
           pts.sort((a,b) => a.x.compareTo(b.x));
 
           if(snapshot.data!.docs.isEmpty) {minx=0; maxx = 31; miny = 30; maxy = 100;}
+          if(goal < miny) miny = goal;
           return SafeArea(
             child:  Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -201,6 +204,7 @@ class _homepageState extends State<homepage> {
                   ),
                   Expanded(child: StreamBuilder(stream: FirebaseFirestore.instance.collection("ccaldata").snapshots(), builder: (BuildContext context2, AsyncSnapshot<QuerySnapshot> snapshot2)
                   {
+                    if(!snapshot2.hasData) return Text("No data");
                     List<FlSpot> pts2 = [];
                     for(double i = 1; i < 31; i++)
                     {
