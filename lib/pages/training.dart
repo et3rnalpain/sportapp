@@ -82,7 +82,7 @@ class _trainingpageState extends State<trainingpage> {
                                   ),
                                 ),
                                 Image(
-                                  image: AssetImage('images/' + snapshot.data?.docs[index].get('image') + '.jpg'),
+                                  image: AssetImage('assets/images/' + snapshot.data?.docs[index].get('image') + '.jpg'),
                                 ),
                               ],
                           )
@@ -105,7 +105,7 @@ class _trainingpageState extends State<trainingpage> {
                           ],
                         borderRadius: BorderRadius.circular(15),
                         image: DecorationImage(
-                          image: AssetImage('${'images/' + snapshot.data?.docs[index].get('image')}.jpg'),
+                          image: AssetImage('${'assets/images/' + snapshot.data?.docs[index].get('image')}.jpg'),
                           fit: BoxFit.cover,
                           opacity: 0.8,
                         )
