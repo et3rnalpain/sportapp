@@ -171,7 +171,7 @@ class _foodpageState extends State<foodpage> {
                           children: [
                             IconButton(
                               icon: Icon(Icons.camera),
-                              onPressed: () {getImage(); uploadPic(context);},
+                              onPressed: () {*//*getImage(); uploadPic(context);*//*},
                             ),
                             IconButton(
                               icon: Icon(Icons.food_bank_outlined),

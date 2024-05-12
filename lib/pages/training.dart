@@ -60,6 +60,19 @@ class _trainingpageState extends State<trainingpage> {
                               actions: [
                                 Align(
                                   alignment: Alignment.topLeft,
+                                  child:
+                                    Text(
+                                      'Сложность:',
+                                      style: TextStyle(
+                                      fontFamily: 'Josko',
+                                      fontSize: 20,
+                                    ),)
+                                ),
+                                Row(
+                                  children: List.generate(snapshot.data?.docs[index].get('difficulty'), (index) => Icon(Icons.star, size: 25, color: Color.fromARGB(246, 242, 242, 1))),
+                                ),
+                                Align(
+                                  alignment: Alignment.topLeft,
                                   child: Text(
                                     snapshot.data!.docs[index].get('description').toString().replaceAll("ent", '\n'),
                                     style: TextStyle(
@@ -82,6 +95,14 @@ class _trainingpageState extends State<trainingpage> {
                       child: Container(
                       decoration: BoxDecoration(
                         shape:BoxShape.rectangle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
                         borderRadius: BorderRadius.circular(15),
                         image: DecorationImage(
                           image: AssetImage('${'images/' + snapshot.data?.docs[index].get('image')}.jpg'),
@@ -113,7 +134,7 @@ class _trainingpageState extends State<trainingpage> {
                                   Column(
                                     children: [
                                       Row(
-                                          children: List.generate(snapshot.data?.docs[index].get('difficulty'), (index) => Icon(Icons.star, color: Color.fromARGB(255, 151, 251, 87))),
+                                          children: List.generate(snapshot.data?.docs[index].get('difficulty'), (index) => Icon(Icons.star, size: 45, color: Color.fromARGB(246, 242, 242, 1))),
                                       ),
                                     ],
                                   )
