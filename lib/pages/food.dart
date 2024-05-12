@@ -148,7 +148,7 @@ class _foodpageState extends State<foodpage> {
                     ), //Padding
                   ),
                     elevation: 4.0,
-                    child: Column(
+                    /*child: Column(
                       children: [
                         ListTile(
                           title: Text(snapshot.data?.docs[index].get('name')),
@@ -186,7 +186,7 @@ class _foodpageState extends State<foodpage> {
                           ],
                         )
                       ],
-                    )
+                    )*/
                 );
               });
         },
