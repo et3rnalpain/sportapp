@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 class UserPage extends StatefulWidget {
   const UserPage({super.key});
 
@@ -11,7 +12,7 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ты'),
+        title: Text('Ты', style: TextStyle(fontFamily: "Josko", fontSize: 30)),
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 151, 251, 87),
       ),
@@ -19,25 +20,47 @@ class _UserPageState extends State<UserPage> {
         child: Column(
           children: [
             Row(
-              children: [
-                Expanded(child: Center(child: CircleAvatar(),)),
-              ],
+              children:[
+                SizedBox(height: 20),
+              ]
             ),
             Row(
               children: [
-                Expanded(child: TextField()),
+                Expanded(child: Center(child: CircleAvatar(
+                  radius: 100,
+                  backgroundImage: AssetImage('images/chel.jpg'),
+                ),)),
               ],
             ),
             Row(
-              children: [
-                Expanded(child: TextField()),
+              children: [SizedBox(width: 30,),Text("Твой nickname: ", style: TextStyle(fontFamily: "Josko", fontSize: 20)),
+                SizedBox(width: 30,),
+                Expanded(child: TextField(
+                  maxLength: 20,
+                )),
+                SizedBox(width: 80,)
+              ],
+            ),
+            Row(
+              children: [SizedBox(width: 30,),Text("Твой вес: ", style: TextStyle(fontFamily: "Josko", fontSize: 20)),
+                SizedBox(width: 30,),
+                Expanded(child: TextField(
+                  maxLength: 3,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                )),
+                SizedBox(width: 150,)
               ],
             ),
             Row(
               children: [SizedBox(width: 30,),Text("Твой рост: ", style: TextStyle(fontFamily: "Josko", fontSize: 20)),
                 SizedBox(width: 30,),
-                Expanded(child: TextField()),
-                SizedBox(width: 30,)
+                Expanded(child: TextField(
+                  maxLength: 3,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                )),
+                SizedBox(width: 150,)
               ],
             ),
             Row(
