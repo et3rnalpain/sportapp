@@ -1,26 +1,26 @@
 
-
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 class homepage extends StatefulWidget {
   const homepage({super.key});
 
+
   @override
   State<homepage> createState() {
+
     return _homepageState();
   }
 }
 
 class _homepageState extends State<homepage> {
   String? w = "5";
-  double goal = 0;
+  double goal = 73;
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +66,13 @@ class _homepageState extends State<homepage> {
 
           if(snapshot.data!.docs.isEmpty) {minx=0; maxx = 31; miny = 30; maxy = 100;}
           if(goal < miny) miny = goal;
+          if(goal > maxy) maxy = goal;
           return SafeArea(
             child:  Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
+                  SizedBox(height: 10,),
+                  Container(child: Center(child: Text("Динамика веса", style: TextStyle(fontFamily: 'Josko',fontSize: 18)),),),
                   Container(
                     height: 200,
                     child: Row( children: <Widget>[Expanded(
@@ -131,7 +134,14 @@ class _homepageState extends State<homepage> {
                     ),
                   ),
                   Container(margin: EdgeInsets.all(10),child: Row(children: <Widget>[ Expanded(child: TextField(
-
+                      decoration: InputDecoration(hintText: "Введите цель (кг)"),
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      onChanged: (String text) {
+                        goal = double.parse(text);
+                        setState(() {
+                          return;
+                        });
+                      },
                   ))
                     ,Expanded(child: ElevatedButton(
                     onPressed: () {
@@ -202,6 +212,8 @@ class _homepageState extends State<homepage> {
                       ],
                     ),
                   ),
+              SizedBox(height: 10,),
+              Container(child: Center(child: Text("Динамика потреблённых калорий", style: TextStyle(fontFamily: 'Josko',fontSize: 18)),),),
                   Expanded(child: StreamBuilder(stream: FirebaseFirestore.instance.collection("ccaldata").snapshots(), builder: (BuildContext context2, AsyncSnapshot<QuerySnapshot> snapshot2)
                   {
                     if(!snapshot2.hasData) return Text("No data");
@@ -212,15 +224,16 @@ class _homepageState extends State<homepage> {
                     }
                     for(var obj in snapshot2.data!.docs.reversed.toList())
                     {
+                      double s = obj['date'];
+                      double a = double.parse(obj['ccal']);
                       for(var o in pts2)
                       {
-                        double s = obj['date'];
                         double prevccal = o.y;
                         double f = o.x;
                         if(s == f)
                         {
                           pts2.remove(o);
-                          pts2.add(FlSpot(s, (prevccal + double.parse(obj['ccal']))));
+                          pts2.add(FlSpot(s, (prevccal + a)));
                         }
                       }
                     }

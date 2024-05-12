@@ -119,7 +119,9 @@ class _foodpageState extends State<foodpage> {
                                                     style: ElevatedButton.styleFrom(
                                                       backgroundColor: Color.fromARGB(255, 151, 251, 87),
                                                     ),
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      FirebaseFirestore.instance.collection("ccaldata").add({"date" : DateTime.now().day, "ccal" : (int.parse(snapshot.data?.docs[index].get('ccal')) * int.parse(name!)/100).toString()});
+                                                    },
                                                     child: Text(
                                                       "Готово",
                                                       style: TextStyle(color: Color.fromARGB(255, 18, 18, 18)),
