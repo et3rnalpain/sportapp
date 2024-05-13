@@ -126,7 +126,7 @@ class _trainingpageState extends State<trainingpage> {
                                             style: const TextStyle(
                                               fontFamily: 'Josko',
                                               color: Color.fromRGBO(246, 242, 242, 1),
-                                              fontSize: 45,
+                                              fontSize: 25,
                                             ),
                                           ),
                                   ]
@@ -134,7 +134,7 @@ class _trainingpageState extends State<trainingpage> {
                                   Column(
                                     children: [
                                       Row(
-                                          children: List.generate(snapshot.data?.docs[index].get('difficulty'), (index) => Icon(Icons.star, size: 45, color: Color.fromARGB(246, 242, 242, 1))),
+                                          children: List.generate(snapshot.data?.docs[index].get('difficulty'), (index) => Icon(Icons.star, size: 20, color: Color.fromARGB(246, 242, 242, 1))),
                                       ),
                                     ],
                                   )

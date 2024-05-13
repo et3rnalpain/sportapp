@@ -39,6 +39,8 @@ flutter:
     - assets/images/grecha.jpg
     - assets/images/training3.jpg
     - assets/images/chel.jpg
+    - assets/images/trenya_ponedelnik.jpg
+    - assets/images/trenya_pyatnitsa.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
