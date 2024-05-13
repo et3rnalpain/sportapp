@@ -40,7 +40,16 @@ class _UserPageState extends State<UserPage> {
             ),
             Row(
               children: [
-                Expanded(child: Center(child: image != null ? Image.file(image!):
+                Expanded(child: Center(child: image != null ? //
+                ClipPath(
+                  clipper: ShapeBorderClipper(shape:  const CircleBorder()),
+                  clipBehavior: Clip.hardEdge,
+                  child: Image.file(image!,
+                    height: 200.0,
+                    width: 200.0,
+                    fit: BoxFit.fill,
+                  )
+                )    :
                 CircleAvatar(
                   radius: 100,
                   backgroundImage: AssetImage('assets/images/chel.jpg'),

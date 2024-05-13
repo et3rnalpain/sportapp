@@ -281,7 +281,7 @@ class _homepageState extends State<homepage> {
                   child: Row( children: [Expanded(
                     child: Container(
                       padding: EdgeInsets.fromLTRB(0, 20, 37, 0),
-                      height: 300,
+                      height: 150,
                       alignment: Alignment.topCenter,
                       child: LineChart(
                           LineChartData
